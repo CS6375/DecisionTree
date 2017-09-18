@@ -7,11 +7,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represent a dataset with only boolean attribute and boolean label.
+ */
 public class DataSet {
+    /**
+     * List of instances, internally an ArrayList.
+     */
     List<Instance> instances;
+
+    /**
+     * The name of each attributes. Used ArrayList instead of array for the {@code indexOf}
+     * function. This is final since the data set is fixed once read from file. No modification to
+     * current data set is allow. If a split operation is needed, allocate new data set to store new
+     * collection of instances.
+     */
     final List<String> attributes;
-    Boolean[] exclude;
-    final int dimension;
+
+    /**
+     * Boolean indicator to determine whether an attribute with certain index is excluded in
+     * computing.
+     */
+    boolean[] exclude;
+
+    /**
+     * Current dimension of the data set, i.e., the number of not-excluded attributes. Like the
+     * {@code attributes}, intuitively, the {@code dimension} should be fixed once the data set was
+     * form.
+     */
+    private final int dimension;
 
     public List<String> getAttributes() {
         return attributes;
@@ -19,6 +43,10 @@ public class DataSet {
 
     public int getDimension() {
         return dimension;
+    }
+
+    public int getOriginalDimension() {
+        return this.exclude.length;
     }
 
     public DataSet(List<String> attributes, int dimension) {
@@ -31,7 +59,7 @@ public class DataSet {
         String[] temp = br.readLine().split(",");
         this.dimension = temp.length - 1;
         this.attributes = new ArrayList<>(dimension);
-        this.exclude = new Boolean[dimension];
+        this.exclude = new boolean[dimension];
 
         for (int i = 0; i < this.dimension; i++) {
             this.attributes.add(temp[i]);
@@ -51,7 +79,7 @@ public class DataSet {
         this.instances = instances;
     }
 
-    public void setExclude(Boolean[] exclude) {
+    public void setExclude(boolean[] exclude) {
         this.exclude = exclude;
     }
 
