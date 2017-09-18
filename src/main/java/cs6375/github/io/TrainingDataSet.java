@@ -1,9 +1,15 @@
 package cs6375.github.io;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainingDataSet extends DataSet {
     private Double entropy;
+
+    public TrainingDataSet(List<String> attributes, int dimension) {
+        super(attributes, dimension);
+    }
 
     public TrainingDataSet(String filename) throws IOException {
         super(filename);
@@ -57,5 +63,27 @@ public class TrainingDataSet extends DataSet {
         double negEntropy = -Math.plogp(negpos / neg) - Math.plogp(negneg / neg);
 
         return this.entropy - (posEntropy * pos / total + negEntropy * neg / total);
+    }
+
+    public void split(TrainingDataSet a, TrainingDataSet b, String attribute) {
+        final int index = this.attributes.indexOf(attribute);
+
+        Boolean[] newExclude = new Boolean[this.dimension];
+        System.arraycopy(this.exclude, 0, newExclude, 0, this.dimension);
+        newExclude[index] = true;
+
+        List<Instance> alist = new ArrayList<>();
+        List<Instance> blist = new ArrayList<>();
+
+        for (Instance instance : this.instances) {
+            if (instance.getValues()[index])
+                alist.add(instance);
+            else
+                blist.add(instance);
+        }
+        a.setExclude(newExclude);
+        b.setExclude(newExclude);
+        a.setInstances(alist);
+        b.setInstances(blist);
     }
 }

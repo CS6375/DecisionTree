@@ -69,25 +69,4 @@ public class DataSet {
                 '}';
     }
 
-    public void split(DataSet a, DataSet b, String attribute) {
-        final int index = this.attributes.indexOf(attribute);
-
-        Boolean[] newExclude = new Boolean[this.dimension];
-        System.arraycopy(this.exclude, 0, newExclude, 0, this.dimension);
-        newExclude[index] = true;
-
-        List<Instance> alist = new ArrayList<>();
-        List<Instance> blist = new ArrayList<>();
-
-        for (Instance instance : this.instances) {
-            if (instance.getValues()[index])
-                alist.add(instance);
-            else
-                blist.add(instance);
-        }
-        a.setExclude(newExclude);
-        b.setExclude(newExclude);
-        a.setInstances(alist);
-        b.setInstances(blist);
-    }
 }

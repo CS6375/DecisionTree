@@ -20,5 +20,16 @@ public class TrainingDataSetTest {
 
         assertEquals(1.0, ds.getEntropy(), 0);
     }
+    @Test
+    public void split() throws Exception {
+        String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
 
+        TrainingDataSet ds = new TrainingDataSet(trainingfile);
+        TrainingDataSet a = new TrainingDataSet(ds.getAttributes(), ds.getDimension());
+        TrainingDataSet b = new TrainingDataSet(ds.getAttributes(), ds.getDimension());
+        ds.split(a, b, "XH");
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(ds.getNumOfInstance());
+    }
 }
