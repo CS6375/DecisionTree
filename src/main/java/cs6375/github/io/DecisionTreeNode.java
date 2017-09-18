@@ -12,8 +12,9 @@ public class DecisionTreeNode {
         // If all Examples are positive, Return the single-node tree Root, with label = +
         // If all Examples are negative, Return the single-node tree Root, with label = -
         // If Attributes is empty, Return the single-node tree Root, with label = most common value of Target attribute in Examples
+        this.label = dataSet.getMostCommonLabel();
+
         if (dataSet.getEntropy() == 0 || dataSet.getDimension() == 0) {
-            this.label = dataSet.getMostCommonLabel();
             return;
         }
 
@@ -39,25 +40,28 @@ public class DecisionTreeNode {
 
     @Override
     public String toString() {
-        String vert = new String();
+        StringBuilder vertical = new StringBuilder();
+
         for (int i = 1; i <= depth; i++)
-            vert = vert + "| ";
-        String result = new String();
+            vertical.append("| ");
+
+        StringBuilder ret = new StringBuilder();
 
         if (this.attribute == null) {
-            result = result + this.label;
+            ret.append(this.label);
         } else {
+//            ret.append(vertical).append(attribute).append("= 0 : ").append().append(left).append('\n');
             if (this.left.attribute == null) {
-                result = result + vert + attribute + "= 0 : " + left + "\n";
+                ret.append(vertical).append(attribute).append("= 0 : ").append(left).append('\n');
             } else {
-                result = result + vert + attribute + "= 0 : \n" + left + "\n";
+                ret.append(vertical).append(attribute).append("= 0 : \n").append(left).append('\n');
             }
             if (this.right.attribute == null) {
-                result = result + vert + attribute + "= 1 : " + right;
+                ret.append(vertical).append(attribute).append("= 1 : ").append(right);
             } else {
-                result = result + vert + attribute + "= 1 : \n" + right;
+                ret.append(vertical).append(attribute).append("= 1 : \n").append(right);
             }
         }
-        return result;
+        return ret.toString();
     }
 }

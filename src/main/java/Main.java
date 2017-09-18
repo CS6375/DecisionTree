@@ -1,3 +1,4 @@
+import cs6375.github.io.DecisionTreeNode;
 import cs6375.github.io.TrainingDataSet;
 
 public class Main {
@@ -22,6 +23,8 @@ public class Main {
 
         TrainingDataSet trainingDataSet = new TrainingDataSet(training);
         System.out.println(trainingDataSet.getEntropy());
+
+        DecisionTreeNode root = new DecisionTreeNode(trainingDataSet);
 
         return;
     }
