@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class DataSetTest {
     @Test
     public void split() throws Exception {
-        DataSet ds = new DataSet("resources/data_sets1/training_set.csv");
+        DataSet ds = new DataSet("data/data_sets1/training_set.csv");
         DataSet a = new DataSet(ds.getAttributes(), ds.getDimension());
         DataSet b = new DataSet(ds.getAttributes(), ds.getDimension());
         ds.split(a, b, "XH");
@@ -19,7 +19,7 @@ public class DataSetTest {
 
     @Test
     public void DataSet() throws IOException {
-        DataSet ds = new DataSet("resources/data_sets1/training_set.csv");
+        DataSet ds = new DataSet("data/data_sets1/training_set.csv");
         System.out.println(ds);
     }
 
