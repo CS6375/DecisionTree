@@ -9,9 +9,9 @@ import java.util.List;
 
 public class DataSet {
     List<Instance> instances;
-    private final List<String> attributes;
-    private Boolean[] exclude;
-    private final int dimension;
+    final List<String> attributes;
+    Boolean[] exclude;
+    final int dimension;
 
     public List<String> getAttributes() {
         return attributes;

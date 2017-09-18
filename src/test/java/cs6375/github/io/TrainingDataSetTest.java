@@ -6,6 +6,13 @@ import static org.junit.Assert.*;
 
 public class TrainingDataSetTest {
     @Test
+    public void computeIGAtI() throws Exception {
+        String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
+        TrainingDataSet ds = new TrainingDataSet(trainingfile);
+        System.out.println(ds.getMaxIG());
+    }
+
+    @Test
     public void getEntropy() throws Exception {
         String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
 
