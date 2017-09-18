@@ -6,9 +6,11 @@ import java.util.List;
 
 public class TrainingDataSet extends DataSet {
     private Double entropy;
+    private Boolean mostCommonLabel;
 
     public TrainingDataSet(List<String> attributes, int dimension) {
         super(attributes, dimension);
+        this.mostCommonLabel = null;
     }
 
     public TrainingDataSet(String filename) throws IOException {
@@ -24,6 +26,7 @@ public class TrainingDataSet extends DataSet {
         assert pos + neg == total;
 
         this.entropy = -Math.plogp(pos / total) - Math.plogp(neg / total);
+        this.mostCommonLabel = pos > neg;
     }
 
     public double getEntropy() {
@@ -65,6 +68,12 @@ public class TrainingDataSet extends DataSet {
         return this.entropy - (posEntropy * pos / total + negEntropy * neg / total);
     }
 
+    @Override
+    public void setInstances(List<Instance> instances) {
+        super.setInstances(instances);
+        this.computeEntropy();
+    }
+
     public void split(TrainingDataSet a, TrainingDataSet b, String attribute) {
         final int index = this.attributes.indexOf(attribute);
 
@@ -85,5 +94,9 @@ public class TrainingDataSet extends DataSet {
         b.setExclude(newExclude);
         a.setInstances(alist);
         b.setInstances(blist);
+    }
+
+    public boolean getMostCommonLabel() {
+        return this.mostCommonLabel;
     }
 }
