@@ -8,19 +8,15 @@ import static org.junit.Assert.*;
 public class DataSetTest {
     @Test
     public void split() throws Exception {
-        DataSet ds = new DataSet("data/data_sets1/training_set.csv");
+        String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
+
+        DataSet ds = new DataSet(trainingfile);
         DataSet a = new DataSet(ds.getAttributes(), ds.getDimension());
         DataSet b = new DataSet(ds.getAttributes(), ds.getDimension());
         ds.split(a, b, "XH");
         System.out.println(a);
         System.out.println(b);
         System.out.println(ds.getNumOfInstance());
-    }
-
-    @Test
-    public void DataSet() throws IOException {
-        DataSet ds = new DataSet("data/data_sets1/training_set.csv");
-        System.out.println(ds);
     }
 
 }
