@@ -8,15 +8,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DataSet {
-    private List<Instance> instances;
-    private List<String> attributes;
+    List<Instance> instances;
+    private final List<String> attributes;
     private Boolean[] exclude;
     private final int dimension;
 
-    public DataSet(List<Instance> instances, List<String> attributes, Boolean[] exclude, int dimension) {
-        this.instances = instances;
+    public List<String> getAttributes() {
+        return attributes;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public DataSet(List<String> attributes, int dimension) {
         this.attributes = attributes;
-        this.exclude = exclude;
         this.dimension = dimension;
     }
 
@@ -38,17 +44,28 @@ public class DataSet {
             instances.add(new Instance(line));
             line = br.readLine();
         }
-
         br.close();
+    }
+
+    public void setInstances(List<Instance> instances) {
+        this.instances = instances;
+    }
+
+    public void setExclude(Boolean[] exclude) {
+        this.exclude = exclude;
+    }
+
+    public int getNumOfInstance() {
+        return this.instances.size();
     }
 
     @Override
     public String toString() {
         return "DataSet{" +
-                "instances=" + instances +
-                ", attributes=" + attributes +
-                ", exclude=" + Arrays.toString(exclude) +
-                ", dimension=" + dimension +
+                "\ninstances=" + instances +
+                ", \nattributes=" + attributes +
+                ", \nexclude=" + Arrays.toString(exclude) +
+                ", \ndimension=" + dimension +
                 '}';
     }
 
@@ -68,8 +85,9 @@ public class DataSet {
             else
                 blist.add(instance);
         }
-        a = new DataSet(alist, this.attributes, newExclude, this.dimension);
-        b = new DataSet(alist, this.attributes, newExclude, this.dimension);
+        a.setExclude(newExclude);
+        b.setExclude(newExclude);
+        a.setInstances(alist);
+        b.setInstances(blist);
     }
-
 }

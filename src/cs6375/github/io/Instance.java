@@ -4,8 +4,9 @@ package cs6375.github.io;
 import java.util.Arrays;
 
 public class Instance {
-    final boolean[] values;
-    final boolean label;
+    private final boolean[] values;
+
+    private final boolean label;
 
     public boolean[] getValues() {
         return values;
