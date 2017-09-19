@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * Represent a line in the data set file.
  */
-public class Instance {
+public final class Instance {
 
     /**
      * Store the values of each attribute in the instance. Currently only boolean type is
@@ -26,6 +26,19 @@ public class Instance {
      */
     public boolean[] getValues() {
         return values;
+    }
+
+    /**
+     * Return the value of specific index.
+     * @param i The index of value needed.
+     * @return The value of index i.
+     */
+    public boolean getValue(int i) {
+        return this.values[i];
+    }
+
+    public boolean test(boolean predict) {
+        return predict == this.label;
     }
 
     /**

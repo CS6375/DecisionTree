@@ -25,8 +25,8 @@ public class TrainingDataSetTest {
         String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
 
         TrainingDataSet ds = new TrainingDataSet(trainingfile);
-        TrainingDataSet a = new TrainingDataSet(ds.getAttributes(), ds.getDimension());
-        TrainingDataSet b = new TrainingDataSet(ds.getAttributes(), ds.getDimension());
+        TrainingDataSet a = new TrainingDataSet(ds.getAttributes(), ds.getDimension() - 1);
+        TrainingDataSet b = new TrainingDataSet(ds.getAttributes(), ds.getDimension() - 1);
         ds.split(a, b, "XH");
         System.out.println(a);
         System.out.println(b);

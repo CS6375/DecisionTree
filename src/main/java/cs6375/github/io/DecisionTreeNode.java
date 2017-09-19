@@ -15,6 +15,7 @@ public class DecisionTreeNode {
         this.label = dataSet.getMostCommonLabel();
 
         if (dataSet.getEntropy() == 0 || dataSet.getDimension() == 0) {
+            this.left = this.right = null;
             return;
         }
 
@@ -31,11 +32,34 @@ public class DecisionTreeNode {
         this.depth = dataSet.attributes.size() - dataSet.getDimension();
     }
 
-
     public DecisionTreeNode(boolean label) {
         this.label = label;
         this.left = null;
         this.right = null;
+    }
+
+    public boolean isLeaf() {
+        return this.right == null;
+    }
+
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public boolean getLabel() {
+        return label;
+    }
+
+    public DecisionTreeNode getLeft() {
+        return this.left;
+    }
+
+    public DecisionTreeNode getRight() {
+        return this.right;
+    }
+
+    public DecisionTreeNode getNext(boolean value) {
+        return value ? this.left : this.right;
     }
 
     @Override

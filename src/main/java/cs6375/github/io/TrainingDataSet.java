@@ -23,8 +23,8 @@ public class TrainingDataSet extends DataSet {
 
     public void computeEntropy() {
         double total = this.getNumOfInstance();
-        double pos = this.instances.stream().filter(Instance::getLabel).count();
-        double neg = this.instances.stream().filter(x -> !x.getLabel()).count();
+        double pos = this.getInstances().stream().filter(Instance::getLabel).count();
+        double neg = this.getInstances().stream().filter(x -> !x.getLabel()).count();
 
         assert pos + neg == total;
 
@@ -62,18 +62,18 @@ public class TrainingDataSet extends DataSet {
     }
 
     public double computeIGAtI(int i) {
-        double total = this.instances.size();
+        double total = this.getInstances().size();
 
-        double pos = this.instances.stream().filter(x -> x.getValues()[i]).count();
-        double pospos = this.instances.stream().filter(x -> x.getValues()[i]).filter(Instance::getLabel).count();
-        double posneg = this.instances.stream().filter(x -> x.getValues()[i]).filter(x -> !x.getLabel()).count();
+        double pos = this.getInstances().stream().filter(x -> x.getValues()[i]).count();
+        double pospos = this.getInstances().stream().filter(x -> x.getValues()[i]).filter(Instance::getLabel).count();
+        double posneg = this.getInstances().stream().filter(x -> x.getValues()[i]).filter(x -> !x.getLabel()).count();
 
         double posEntropy = -Math.plogp(pospos / pos) - Math.plogp(posneg / pos);
         assert posEntropy >= 0 && posEntropy <= 1;
 
-        double neg = this.instances.stream().filter(x -> !x.getValues()[i]).count();
-        double negpos = this.instances.stream().filter(x -> !x.getValues()[i]).filter(Instance::getLabel).count();
-        double negneg = this.instances.stream().filter(x -> !x.getValues()[i]).filter(x -> !x.getLabel()).count();
+        double neg = this.getInstances().stream().filter(x -> !x.getValues()[i]).count();
+        double negpos = this.getInstances().stream().filter(x -> !x.getValues()[i]).filter(Instance::getLabel).count();
+        double negneg = this.getInstances().stream().filter(x -> !x.getValues()[i]).filter(x -> !x.getLabel()).count();
 
         double negEntropy = -Math.plogp(negpos / neg) - Math.plogp(negneg / neg);
         assert negEntropy >= 0 && negEntropy <= 1;
@@ -116,7 +116,7 @@ public class TrainingDataSet extends DataSet {
         List<Instance> alist = new ArrayList<>();
         List<Instance> blist = new ArrayList<>();
 
-        for (Instance instance : this.instances) {
+        for (Instance instance : this.getInstances()) {
             if (instance.getValues()[index])
                 alist.add(instance);
             else

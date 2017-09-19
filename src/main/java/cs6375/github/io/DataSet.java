@@ -14,7 +14,7 @@ public class DataSet {
     /**
      * List of instances, internally an ArrayList.
      */
-    List<Instance> instances;
+    private List<Instance> instances;
 
     /**
      * The name of each attributes. Used ArrayList instead of array for the {@code indexOf}
@@ -54,6 +54,10 @@ public class DataSet {
         this.dimension = dimension;
     }
 
+    public List<Instance> getInstances() {
+        return instances;
+    }
+
     public DataSet(final String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String[] temp = br.readLine().split(",");
@@ -72,6 +76,7 @@ public class DataSet {
             instances.add(new Instance(line));
             line = br.readLine();
         }
+
         br.close();
     }
 
