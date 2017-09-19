@@ -10,14 +10,31 @@ public class DecisionTreeTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void test1() throws Exception {
         String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
         String testfile = this.getClass().getClassLoader().getResource("data_sets1/test_set.csv").getFile();
+        String validationfile = this.getClass().getClassLoader().getResource("data_sets1/validation_set.csv").getFile();
         TrainingDataSet ds = new TrainingDataSet(trainingfile);
         DataSet ts = new DataSet(testfile);
+        DataSet vs = new DataSet(validationfile);
 
         DecisionTree dt = new DecisionTree(ds);
         System.out.println(dt.test(ts));
+        System.out.println(dt.test(vs));
+    }
+
+    @Test
+    public void test2() throws Exception {
+        String trainingfile = this.getClass().getClassLoader().getResource("data_sets2/training_set.csv").getFile();
+        String testfile = this.getClass().getClassLoader().getResource("data_sets2/test_set.csv").getFile();
+        String validationfile = this.getClass().getClassLoader().getResource("data_sets2/validation_set.csv").getFile();
+        TrainingDataSet ds = new TrainingDataSet(trainingfile);
+        DataSet ts = new DataSet(testfile);
+        DataSet vs = new DataSet(validationfile);
+
+        DecisionTree dt = new DecisionTree(ds);
+        System.out.println(dt.test(ts));
+        System.out.println(dt.test(vs));
     }
 
     @Test
