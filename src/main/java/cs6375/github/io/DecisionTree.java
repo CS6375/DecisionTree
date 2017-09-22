@@ -1,5 +1,6 @@
 package cs6375.github.io;
 
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,6 +92,7 @@ public class DecisionTree {
      * @param factor Pruning factor.
      */
     public void prune(double factor) {
-
+        final int num = (int) Math.floor(this.getSize() * factor);
+        System.out.println(num);
     }
 }

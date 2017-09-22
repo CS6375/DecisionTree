@@ -6,6 +6,14 @@ import static org.junit.Assert.*;
 
 public class DecisionTreeTest {
     @Test
+    public void prune() throws Exception {
+        String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
+        TrainingDataSet ds = new TrainingDataSet(trainingfile);
+        DecisionTree dt = new DecisionTree(ds);
+        dt.prune(0.02);
+    }
+
+    @Test
     public void predict() throws Exception {
     }
 
