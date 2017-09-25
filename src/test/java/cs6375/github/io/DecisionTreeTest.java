@@ -8,9 +8,11 @@ public class DecisionTreeTest {
     @Test
     public void prune() throws Exception {
         String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
+        String validationfile = this.getClass().getClassLoader().getResource("data_sets1/validation_set.csv").getFile();
         TrainingDataSet ds = new TrainingDataSet(trainingfile);
+        DataSet vs = new DataSet(validationfile);
         DecisionTree dt = new DecisionTree(ds);
-        dt.prune(0.02);
+        dt.prune(0.2, vs);
     }
 
     @Test

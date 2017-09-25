@@ -30,6 +30,7 @@ public final class Instance {
 
     /**
      * Return the value of specific index.
+     *
      * @param i The index of value needed.
      * @return The value of index i.
      */
@@ -52,6 +53,7 @@ public final class Instance {
 
     /**
      * Public constructor from a given string. The string should be separated by comma(,).
+     *
      * @param values The string representing current instance.
      */
     public Instance(String values) {

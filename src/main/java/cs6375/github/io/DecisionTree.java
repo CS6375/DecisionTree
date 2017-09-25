@@ -10,9 +10,15 @@ public class DecisionTree {
 
     /**
      * An ArrayList to store the whole tree in BFS order. Generated after the tree is constructed by
-     * the {@code DecisionTreeNode} of root.
+     * the {@code DecisionTreeNode} of root. The first element is the root node.
      */
     private ArrayList<DecisionTreeNode> nodes;
+
+    /**
+     * An ArrayList to store all the leaf nodes according to BFS order. Generated alongside the
+     * {@code this.nodes}.
+     */
+    private ArrayList<DecisionTreeNode> leaves;
 
     /**
      * Public constructor. First construct the tree recursively using constructor of {@code
@@ -23,7 +29,8 @@ public class DecisionTree {
     public DecisionTree(TrainingDataSet trainingDataSet) {
         DecisionTreeNode root = new DecisionTreeNode(trainingDataSet);
 
-        this.nodes = new ArrayList<>();
+        this.nodes  = new ArrayList<>();
+        this.leaves = new ArrayList<>();
 
         Queue<DecisionTreeNode> queue = new LinkedList<>();
 
@@ -38,6 +45,9 @@ public class DecisionTree {
 
                 queue.add(next.getLeft());
                 queue.add(next.getRight());
+            } else {
+                // leaf node.
+                this.leaves.add(next);
             }
         }
     }
@@ -49,6 +59,15 @@ public class DecisionTree {
      */
     public int getSize() {
         return nodes.size();
+    }
+
+    /**
+     * Return the total number of leaf nodes.
+     *
+     * @return The total number of leaf nodes.
+     */
+    public int getLeafSize() {
+        return this.leaves.size();
     }
 
     /**
@@ -75,6 +94,7 @@ public class DecisionTree {
 
     /**
      * Test the decision tree on specific test data set.
+     *
      * @param dataSet The data set to be tested on.
      * @return Accuracy.
      */
@@ -89,10 +109,39 @@ public class DecisionTree {
 
     /**
      * Prune the decision tree based on specific pruning factor.
+     *
      * @param factor Pruning factor.
      */
-    public void prune(double factor) {
+    public void prune(double factor, DataSet validation) {
         final int num = (int) Math.floor(this.getSize() * factor);
-        System.out.println(num);
+
+        double oriRate = this.test(validation);
+
+        double rate;
+        for (int count = 0; count < num; count++) {
+
+            double maxIncrease = 0;
+            DecisionTreeNode prunedNode = null;
+
+            for (DecisionTreeNode node : this.nodes) {
+                if (node.isPruned())
+                    continue;
+                node.setPruned();
+                rate = this.test(validation);
+                if (rate - oriRate <= maxIncrease) {
+                    node.resetPruned();
+                } else {
+                    maxIncrease = rate - oriRate;
+                    prunedNode = node;
+                    node.resetPruned();
+                }
+            }
+
+            if (prunedNode == null) {
+                break;
+            }
+            prunedNode.setPruned();
+            oriRate += maxIncrease;
+        }
     }
 }

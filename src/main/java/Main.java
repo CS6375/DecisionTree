@@ -1,5 +1,7 @@
-import cs6375.github.io.DecisionTreeNode;
+import cs6375.github.io.DataSet;
+import cs6375.github.io.DecisionTree;
 import cs6375.github.io.TrainingDataSet;
+
 
 public class Main {
     /**
@@ -22,10 +24,45 @@ public class Main {
         Double pruningFactor = Double.parseDouble(args[3]);
 
         TrainingDataSet trainingDataSet = new TrainingDataSet(training);
-        System.out.println(trainingDataSet.getEntropy());
+        DataSet validationDataSet = new DataSet(validation);
+        DataSet testDataSet = new DataSet(test);
 
-        DecisionTreeNode root = new DecisionTreeNode(trainingDataSet);
+        DecisionTree decisionTree = new DecisionTree(trainingDataSet);
 
-        return;
+        System.out.println();
+        System.out.println("Pre-Pruned Accuracy \n-------------------------------------");
+        System.out.println("Number of training instances = " + trainingDataSet.getNumOfInstance());
+        System.out.println("Number of training attributes = " + trainingDataSet.getDimension());
+        System.out.println("Total number of nodes in the tree = " + decisionTree.getSize());
+        System.out.println("Number of leaf nodes in the tree = " + decisionTree.getLeafSize());
+        System.out.println("Accuracy of the model on the training dataset = " + String.format("%.1f%%", 100 * decisionTree.test(trainingDataSet)));
+        System.out.println();
+        System.out.println("Number of validation instances = " + validationDataSet.getNumOfInstance());
+        System.out.println("Number of validation attributes = " + validationDataSet.getDimension());
+        System.out.println("Accuracy of the model on the validation dataset before pruning = " + String.format("%.1f%%", 100 * decisionTree.test(validationDataSet)));
+        System.out.println();
+        System.out.println("Number of testing instances = " + testDataSet.getNumOfInstance());
+        System.out.println("Number of testing attributes = " + testDataSet.getDimension());
+        System.out.println("Accuracy of the model on the testing dataset = " + String.format("%.1f%%", 100 * decisionTree.test(testDataSet)));
+        System.out.println();
+
+        decisionTree.prune(pruningFactor, validationDataSet);
+
+        System.out.println();
+        System.out.println("Post-Pruned Accuracy \n-------------------------------------");
+        System.out.println("Number of training instances = " + trainingDataSet.getNumOfInstance());
+        System.out.println("Number of training attributes = " + trainingDataSet.getDimension());
+        System.out.println("Total number of nodes in the tree = " + decisionTree.getSize());
+        System.out.println("Number of leaf nodes in the tree = " + decisionTree.getLeafSize());
+        System.out.println("Accuracy of the model on the training dataset = " + String.format("%.1f%%", 100 * decisionTree.test(trainingDataSet)));
+        System.out.println();
+        System.out.println("Number of validation instances = " + validationDataSet.getNumOfInstance());
+        System.out.println("Number of validation attributes = " + validationDataSet.getDimension());
+        System.out.println("Accuracy of the model on the validation dataset before pruning = " + String.format("%.1f%%", 100 * decisionTree.test(validationDataSet)));
+        System.out.println();
+        System.out.println("Number of testing instances = " + testDataSet.getNumOfInstance());
+        System.out.println("Number of testing attributes = " + testDataSet.getDimension());
+        System.out.println("Accuracy of the model on the testing dataset = " + String.format("%.1f%%", 100 * decisionTree.test(testDataSet)));
+
     }
 }

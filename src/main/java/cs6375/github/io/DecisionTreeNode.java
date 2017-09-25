@@ -6,8 +6,12 @@ public class DecisionTreeNode {
     private int depth;
     private DecisionTreeNode left;
     private DecisionTreeNode right;
+    private boolean pruned = false;
+
+    private TrainingDataSet dataSet;
 
     public DecisionTreeNode(TrainingDataSet dataSet) {
+        this.dataSet = dataSet;
         // Following three cases are considered together.
         // If all Examples are positive, Return the single-node tree Root, with label = +
         // If all Examples are negative, Return the single-node tree Root, with label = -
@@ -39,7 +43,19 @@ public class DecisionTreeNode {
     }
 
     public boolean isLeaf() {
-        return this.right == null;
+        return this.pruned || this.right == null;
+    }
+
+    public boolean isPruned() {
+        return pruned;
+    }
+
+    public void setPruned() {
+        this.pruned = true;
+    }
+
+    public void resetPruned() {
+        this.pruned = false;
     }
 
     public String getAttribute() {

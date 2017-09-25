@@ -10,7 +10,7 @@ public class DecisionTreeNodeTest {
         TrainingDataSet ds = new TrainingDataSet(trainingfile);
 
         DecisionTreeNode dt = new DecisionTreeNode(ds);
-        System.out.println(dt);
+//        System.out.println(dt);
+        System.out.println(dt.getRight().getLabel());
     }
-
 }
