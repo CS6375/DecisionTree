@@ -5,10 +5,14 @@ apply plugin: 'java'
 
 apply plugin: 'application'
 
+mainClassName = 'Main'
+
 jar {
     manifest {
         attributes('Main-Class': 'Main')
     }
+    baseName = 'DecisionTree'
+    version =  '1.0'
 }
 
 sourceCompatibility = 1.8
