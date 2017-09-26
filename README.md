@@ -131,7 +131,7 @@ After generating jar file, execute the following command to run the driver progr
     
 For example, training and pruning based on `data_sets1`:
 
-    java -jar build/libs/DecisionTree-1.0.jar  src/test/resources/data_sets1/training_set.csv src/test/resources/data_sets1/validation_set.csv src/test/resources/data_sets1/test_set.csv 0.2
+    > java -jar build/libs/DecisionTree-1.0.jar  src/test/resources/data_sets1/training_set.csv src/test/resources/data_sets1/validation_set.csv src/test/resources/data_sets1/test_set.csv 0.2
 
     Pre-Pruned Accuracy
     -------------------------------------
@@ -165,5 +165,42 @@ For example, training and pruning based on `data_sets1`:
     Number of testing instances = 2000
     Number of testing attributes = 20
     Accuracy of the model on the testing dataset = 78.6%
+
+Training and pruning based on `data_sets2`:
+
+    > java -jar build/libs/DecisionTree-1.0.jar  src/test/resources/data_sets2/training_set.csv src/test/resources/data_sets2/validation_set.csv src/test/resources/data_sets2/test_set.csv 0.2
+
+    Pre-Pruned Accuracy
+    -------------------------------------
+    Number of training instances = 600
+    Number of training attributes = 20
+    Total number of nodes in the tree = 307
+    Number of leaf nodes in the tree = 154
+    Accuracy of the model on the training dataset = 99.8%
+
+    Number of validation instances = 600
+    Number of validation attributes = 20
+    Accuracy of the model on the validation dataset before pruning = 76.7%
+
+    Number of testing instances = 600
+    Number of testing attributes = 20
+    Accuracy of the model on the testing dataset = 74.5%
+
+
+    Post-Pruned Accuracy
+    -------------------------------------
+    Number of training instances = 600
+    Number of training attributes = 20
+    Total number of nodes in the tree = 307
+    Number of leaf nodes in the tree = 154
+    Accuracy of the model on the training dataset = 87.7%
+
+    Number of validation instances = 600
+    Number of validation attributes = 20
+    Accuracy of the model on the validation dataset before pruning = 82.7%
+
+    Number of testing instances = 600
+    Number of testing attributes = 20
+    Accuracy of the model on the testing dataset = 76.5%
 
 Note that in the example, the sample data set is located in the resources directory of test.
