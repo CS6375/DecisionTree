@@ -123,7 +123,7 @@ The easy way to build the project is using __Gradle__. The following commands wa
 
         10 directories, 9 files
 
-If `gradle` is not available, simply execute `javac src main/java/Main.java` would generate executable binary file `Main.class`.
+If `gradle` is not available, simply execute `javac src/main/java/Main.java` would generate executable binary file `Main.class`.
 
 ## Execution
 
