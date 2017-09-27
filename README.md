@@ -59,69 +59,38 @@ The easy way to build the project is using __Gradle__. The following commands wa
     JVM:          9 (Oracle Corporation 9+181)
     OS:           Mac OS X 10.12.6 x86_64
 
--   In the root directory, execute command `gradle build` would compile and unit test the source file into java binary and jar file in `build` directory.
+In the root directory, execute command `gradle build` would compile and unit test the source file into java binary and jar file in `build` directory.
 
-        > gradle build
+    > gradle build
 
-        BUILD SUCCESSFUL in 4s
-        8 actionable tasks: 8 executed
-        
-        > tree build/classes
-        build/classes
-        └── java
-            ├── main
-            │   ├── Main.class
-            │   └── cs6375
-            │       └── github
-            │           └── io
-            │               ├── DataSet.class
-            │               ├── DecisionTree.class
-            │               ├── DecisionTreeNode.class
-            │               ├── Instance.class
-            │               ├── Math.class
-            │               └── TrainingDataSet.class
-            └── test
-                └── cs6375
-                    └── github
-                        └── io
-                            ├── DataSetTest.class
-                            ├── DecisionTreeNodeTest.class
-                            ├── DecisionTreeTest.class
-                            ├── InstanceTest.class
-                            └── TrainingDataSetTest.class
+    BUILD SUCCESSFUL in 4s
+    8 actionable tasks: 8 executed
+    
+    > tree build/classes
+    build/classes
+    └── java
+        ├── main
+        │   ├── Main.class
+        │   └── cs6375
+        │       └── github
+        │           └── io
+        │               ├── DataSet.class
+        │               ├── DecisionTree.class
+        │               ├── DecisionTreeNode.class
+        │               ├── Instance.class
+        │               ├── Math.class
+        │               └── TrainingDataSet.class
+        └── test
+            └── cs6375
+                └── github
+                    └── io
+                        ├── DataSetTest.class
+                        ├── DecisionTreeNodeTest.class
+                        ├── DecisionTreeTest.class
+                        ├── InstanceTest.class
+                        └── TrainingDataSetTest.class
 
-        9 directories, 12 files
-        
--   Or simply execute command `gradle jar`, executable binary class file and jar file would be generated in `build` directory in following struture.
-
-        > gradle jar
-
-        BUILD SUCCESSFUL in 0s
-        2 actionable tasks: 2 executed
-        
-        > tree build
-        build
-        ├── classes
-        │   └── java
-        │       └── main
-        │           ├── Main.class
-        │           └── cs6375
-        │               └── github
-        │                   └── io
-        │                       ├── DataSet.class
-        │                       ├── DecisionTree.class
-        │                       ├── DecisionTreeNode.class
-        │                       ├── Instance.class
-        │                       ├── Math.class
-        │                       └── TrainingDataSet.class
-        ├── libs
-        │   └── DecisionTree-1.0.jar
-        └── tmp
-            ├── compileJava
-            └── jar
-                └── MANIFEST.MF
-
-        10 directories, 9 files
+    9 directories, 12 files
 
 If `gradle` is not available, simply execute `javac src/main/java/Main.java` would generate executable binary file `Main.class`.
 
@@ -130,10 +99,17 @@ If `gradle` is not available, simply execute `javac src/main/java/Main.java` wou
 After generating jar file, execute the following command to run the driver program of the Decision tree.
 
     java -jar build/libs/DecisionTree-1.0.jar <Training Data>  <Validation Data>  <Testing Data> <Pruning Factor>
-    
+
 For example, training and pruning based on `data_sets1`:
 
-    > java -jar build/libs/DecisionTree-1.0.jar  src/test/resources/data_sets1/training_set.csv src/test/resources/data_sets1/validation_set.csv src/test/resources/data_sets1/test_set.csv 0.2
+    > java -jar build/libs/DecisionTree-1.0.jar \
+        src/test/resources/data_sets1/training_set.csv \
+        src/test/resources/data_sets1/validation_set.csv \
+        src/test/resources/data_sets1/test_set.csv 0.2
+
+    --------------------------------------------------------------------------
+    ID3 Algorithm Generated Decision Tree
+    --------------------------------------------------------------------------
 
     Pre-Pruned Accuracy
     -------------------------------------
@@ -141,6 +117,7 @@ For example, training and pruning based on `data_sets1`:
     Number of training attributes = 20
     Total number of nodes in the tree = 265
     Number of leaf nodes in the tree = 133
+    Average depth in the tree = 8.1
     Accuracy of the model on the training dataset = 100.0%
 
     Number of validation instances = 2000
@@ -156,8 +133,9 @@ For example, training and pruning based on `data_sets1`:
     -------------------------------------
     Number of training instances = 600
     Number of training attributes = 20
-    Total number of nodes in the tree = 265
-    Number of leaf nodes in the tree = 133
+    Total number of nodes in the tree = 119
+    Number of leaf nodes in the tree = 60
+    Average depth in the tree = 6.7
     Accuracy of the model on the training dataset = 89.8%
 
     Number of validation instances = 2000
@@ -168,41 +146,121 @@ For example, training and pruning based on `data_sets1`:
     Number of testing attributes = 20
     Accuracy of the model on the testing dataset = 78.6%
 
-Training and pruning based on `data_sets2`:
 
-    > java -jar build/libs/DecisionTree-1.0.jar  src/test/resources/data_sets2/training_set.csv src/test/resources/data_sets2/validation_set.csv src/test/resources/data_sets2/test_set.csv 0.2
+    --------------------------------------------------------------------------
+    Random Generate Decision Tree
+    --------------------------------------------------------------------------
+    Node No.    Leaf No.    Avg Depth       Training    Validation  Test Set
+    265         133         8.052632        100.0%      74.3%       75.1%
+    249         125         8.360000        100.0%      79.4%       78.7%
+    221         111         8.225225        100.0%      81.0%       80.2%
+    299         150         8.373333        100.0%      70.5%       72.5%
+    265         133         8.052632        100.0%      74.3%       75.1%
+    221         111         8.225225        100.0%      81.0%       80.2%
+    271         136         8.375000        100.0%      75.1%       76.1%
+    315         158         8.246835        100.0%      67.2%       68.1%
+    319         160         8.256250        100.0%      69.6%       70.1%
+    329         165         8.509091        100.0%      71.0%       70.7%
 
-    Pre-Pruned Accuracy
-    -------------------------------------
-    Number of training instances = 600
-    Number of training attributes = 20
-    Total number of nodes in the tree = 307
-    Number of leaf nodes in the tree = 154
-    Accuracy of the model on the training dataset = 99.8%
-
-    Number of validation instances = 600
-    Number of validation attributes = 20
-    Accuracy of the model on the validation dataset before pruning = 76.7%
-
-    Number of testing instances = 600
-    Number of testing attributes = 20
-    Accuracy of the model on the testing dataset = 74.5%
-
-
-    Post-Pruned Accuracy
-    -------------------------------------
-    Number of training instances = 600
-    Number of training attributes = 20
-    Total number of nodes in the tree = 307
-    Number of leaf nodes in the tree = 154
-    Accuracy of the model on the training dataset = 87.7%
-
-    Number of validation instances = 600
-    Number of validation attributes = 20
-    Accuracy of the model on the validation dataset before pruning = 82.7%
-
-    Number of testing instances = 600
-    Number of testing attributes = 20
-    Accuracy of the model on the testing dataset = 76.5%
 
 Note that in the example, the sample data set is located in the resources directory of test.
+
+## Design
+
+There are mainly five class in the implementation.
+
+-   `Instance`
+
+    Represented a line of information in the data set file, including,
+
+    -   A list of boolean value, storing the values of each attribute in
+        the instance. Currently only boolean type is supported.
+
+    -   A boolean label, storing the label of the instance. Likely, only
+        boolean type classification is supported currently.
+
+-   `DataSet`
+
+    Represented a dataset with only boolean attribute and boolean label,
+    including,
+
+    -   A list of `Instance` instances.
+
+    -   A list of `String` indicating the name of each attributes. Used
+        ArrayList instead of array for the `indexOf` function. The
+        variable is defined as **final** since the data set is fixed once read
+        from file. No modification to current data set is allow. If a split
+        operation is needed, allocate new data set to store new collection of
+        instances.
+
+    -   A list of boolean indicator to determine whether an attribute with
+        certain index is excluded in computing.
+
+    -   A int variable storing current `dimension` of the data set, i.e., the
+        number of not-excluded attributes. Like the attribute above,
+        intuitively, the `dimension` should be fixed once the data set was
+        form.
+
+-   `TrainingDataSet`
+
+    Based on `DataSet` class, extended with entropy computation and split
+    function. This class standalone because only the training data need compute
+    entropy and split. Additionally, `TrainingDataSet` includes,
+
+    -   A double variable storing the entropy of current data set.
+
+    -   A boolean label indicating the most common label at current level. This
+        value is acquired alongside the entropy calculation.
+
+    Note that, the `split()` operation do not modify current data set or any
+    instances, it simply generate a new data set instance and assign the
+    references of specific set of `Instance` instances to the new data set.
+
+-   `DecisionTreeNode`
+
+    Represented a node in the decision tree, including,
+
+    -   A string label indicate the attribute used to split in this node.
+
+    -   A boolean label indicate the most common class at current node. This
+        value can be computed in building the tree. Although in internal node,
+        the value is meaningless, it is very helpful in pruning, since no more
+        computation is needed after pruning a subtree.
+
+    -   A int value indicating the depth of current node.
+
+    -   Left and Right reference of subtree.
+
+    -   A boolean label indicating whether current node has been pruned. *Note
+        that, in actual pruning, no reference pointing to the subtree is
+        deleted. Only this boolean label is switched to `true`.* Since no
+        actual modification is done to the tree, to recover the “pruned”
+        subtree back, only operation needed is switch back this boolean label.
+        It is relatively easy to calculate the accuracy of different ways of
+        pruning.
+
+-   `DecisionTree`
+
+    Represented a decision tree, including,
+
+    -   An `ArrayList` to store the whole tree in BFS order. Generated after
+        the tree is constructed by the `DecisionTreeNode` of root. The first
+        element is the root node. Note that, generally speaking, to store a
+        tree, only the root of the tree is needed. This additional list does
+        not modify the structure of the tree, yet it offers a much more
+        convenient way to iterate thought the nodes in the tree. And more
+        importantly, it gives indexes to the nodes, allowing random access,
+        i.e., pruning the node randomly.
+
+    -   An `ArrayList` to store all the leaf nodes according to BFS order.
+        Generated alongside the `nodes`.
+
+-   `ID3DecisionTreeNode` and `RandomDecisionTreeNode`
+
+    Based on `DecisionTreeNode`, extended with different method to select
+    attribute to split.
+
+-   `ID3DecisionTree` and `RandomDecisionTree`
+
+    Based on `DecisionTree`, extended with different constructor create root
+    node. `ID3DecisionTree` also override the method `prune()`.
