@@ -3,6 +3,7 @@ package cs6375.github.io;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Based on {@code DataSet} class, extended with entropy computation and split function.
@@ -59,6 +60,20 @@ public class TrainingDataSet extends DataSet {
             }
         }
         return this.attributes.get(maxIndex);
+    }
+
+    public String getRandomLabel() {
+        Random r = new Random();
+        int next = r.nextInt(this.getDimension());
+        int i = 0;
+        for (String attr : this.attributes) {
+            if (this.exclude[i++])
+                continue;
+            next--;
+            if (next < 0)
+                return attr;
+        }
+        return null;
     }
 
     public double computeIGAtI(int i) {

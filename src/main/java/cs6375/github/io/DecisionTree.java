@@ -6,19 +6,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class DecisionTree {
+public abstract class DecisionTree {
 
     /**
      * An ArrayList to store the whole tree in BFS order. Generated after the tree is constructed by
      * the {@code DecisionTreeNode} of root. The first element is the root node.
      */
-    private ArrayList<DecisionTreeNode> nodes;
+    ArrayList<DecisionTreeNode> nodes;
 
     /**
      * An ArrayList to store all the leaf nodes according to BFS order. Generated alongside the
      * {@code this.nodes}.
      */
-    private ArrayList<DecisionTreeNode> leaves;
+    ArrayList<DecisionTreeNode> leaves;
+
+    public DecisionTree() {
+    }
 
     /**
      * Public constructor. First construct the tree recursively using constructor of {@code
@@ -26,10 +29,34 @@ public class DecisionTree {
      *
      * @param trainingDataSet Training DataSet to build the decision tree with.
      */
-    public DecisionTree(TrainingDataSet trainingDataSet) {
-        DecisionTreeNode root = new DecisionTreeNode(trainingDataSet);
+//    public DecisionTree(TrainingDataSet trainingDataSet) {
+//        DecisionTreeNode root = new DecisionTreeNode(trainingDataSet);
+//
+//        this.nodes  = new ArrayList<>();
+//        this.leaves = new ArrayList<>();
+//
+//        Queue<DecisionTreeNode> queue = new LinkedList<>();
+//
+//        queue.offer(root);
+//
+//        DecisionTreeNode next;
+//
+//        while ((next = queue.poll()) != null) {
+//            this.nodes.add(next);
+//            if (next.getLeft() != null) {
+//                assert next.getRight() != null;
+//
+//                queue.add(next.getLeft());
+//                queue.add(next.getRight());
+//            } else {
+//                // leaf node.
+//                this.leaves.add(next);
+//            }
+//        }
+//    }
 
-        this.nodes  = new ArrayList<>();
+    public void generate(DecisionTreeNode root) {
+        this.nodes = new ArrayList<>();
         this.leaves = new ArrayList<>();
 
         Queue<DecisionTreeNode> queue = new LinkedList<>();
@@ -40,8 +67,9 @@ public class DecisionTree {
 
         while ((next = queue.poll()) != null) {
             this.nodes.add(next);
-            if (next.getLeft() != null) {
+            if (!next.isLeaf()) {
                 assert next.getRight() != null;
+                assert next.getLeft() != null;
 
                 queue.add(next.getLeft());
                 queue.add(next.getRight());
@@ -107,41 +135,15 @@ public class DecisionTree {
         return correct / dataSet.getNumOfInstance();
     }
 
-    /**
-     * Prune the decision tree based on specific pruning factor.
-     *
-     * @param factor Pruning factor.
-     */
-    public void prune(double factor, DataSet validation) {
-        final int num = (int) Math.floor(this.getSize() * factor);
-
-        double oriRate = this.test(validation);
-
-        double rate;
-        for (int count = 0; count < num; count++) {
-
-            double maxIncrease = 0;
-            DecisionTreeNode prunedNode = null;
-
-            for (DecisionTreeNode node : this.nodes) {
-                if (node.isPruned())
-                    continue;
-                node.setPruned();
-                rate = this.test(validation);
-                if (rate - oriRate <= maxIncrease) {
-                    node.resetPruned();
-                } else {
-                    maxIncrease = rate - oriRate;
-                    prunedNode = node;
-                    node.resetPruned();
-                }
-            }
-
-            if (prunedNode == null) {
-                break;
-            }
-            prunedNode.setPruned();
-            oriRate += maxIncrease;
+    public double avgDepth() {
+        double sum = 0;
+        for (DecisionTreeNode node : this.leaves) {
+            sum += node.depth;
+//            System.out.println(sum);
         }
+        return sum / this.leaves.size();
     }
+
+    public void prune(double factor, DataSet validation) {}
+
 }

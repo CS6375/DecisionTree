@@ -1,6 +1,4 @@
-import cs6375.github.io.DataSet;
-import cs6375.github.io.DecisionTree;
-import cs6375.github.io.TrainingDataSet;
+import cs6375.github.io.*;
 
 
 public class Main {
@@ -27,14 +25,18 @@ public class Main {
         DataSet validationDataSet = new DataSet(validation);
         DataSet testDataSet = new DataSet(test);
 
-        DecisionTree decisionTree = new DecisionTree(trainingDataSet);
+        DecisionTree decisionTree = new ID3DecisionTree(trainingDataSet);
 
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("ID3 Algorithm Generated Decision Tree");
+        System.out.println("--------------------------------------------------------------------------");
         System.out.println();
         System.out.println("Pre-Pruned Accuracy \n-------------------------------------");
         System.out.println("Number of training instances = " + trainingDataSet.getNumOfInstance());
         System.out.println("Number of training attributes = " + trainingDataSet.getDimension());
         System.out.println("Total number of nodes in the tree = " + decisionTree.getSize());
         System.out.println("Number of leaf nodes in the tree = " + decisionTree.getLeafSize());
+        System.out.println(String.format("Average depth in the tree = %.1f", decisionTree.avgDepth()));
         System.out.println("Accuracy of the model on the training dataset = " + String.format("%.1f%%", 100 * decisionTree.test(trainingDataSet)));
         System.out.println();
         System.out.println("Number of validation instances = " + validationDataSet.getNumOfInstance());
@@ -54,6 +56,7 @@ public class Main {
         System.out.println("Number of training attributes = " + trainingDataSet.getDimension());
         System.out.println("Total number of nodes in the tree = " + decisionTree.getSize());
         System.out.println("Number of leaf nodes in the tree = " + decisionTree.getLeafSize());
+        System.out.println(String.format("Average depth in the tree = %.1f", decisionTree.avgDepth()));
         System.out.println("Accuracy of the model on the training dataset = " + String.format("%.1f%%", 100 * decisionTree.test(trainingDataSet)));
         System.out.println();
         System.out.println("Number of validation instances = " + validationDataSet.getNumOfInstance());
@@ -64,5 +67,21 @@ public class Main {
         System.out.println("Number of testing attributes = " + testDataSet.getDimension());
         System.out.println("Accuracy of the model on the testing dataset = " + String.format("%.1f%%", 100 * decisionTree.test(testDataSet)));
 
+        System.out.println();
+        System.out.println();
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("Random Generate Decision Tree");
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("Node No.\tLeaf No.\tAvg Depth\tTraining\tValidation\tTest Set");
+        for (int i = 0; i < 20; i++) {
+            DecisionTree randomDecisionTree = new RandomDecisionTree(trainingDataSet);
+            System.out.println(String.format("%d\t\t\t%d\t\t\t%f\t\t%.1f%%\t\t%.1f%%\t\t%.1f%%",
+                    randomDecisionTree.getSize(),
+                    randomDecisionTree.getLeafSize(),
+                    randomDecisionTree.avgDepth(),
+                    100 * randomDecisionTree.test(trainingDataSet),
+                    100 * randomDecisionTree.test(validationDataSet),
+                    100 * randomDecisionTree.test(testDataSet)));
+        }
     }
 }

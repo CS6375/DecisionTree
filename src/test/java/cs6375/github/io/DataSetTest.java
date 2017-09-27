@@ -11,7 +11,7 @@ public class DataSetTest {
     public void DecisionTree() throws Exception {
         String trainingfile = this.getClass().getClassLoader().getResource("data_sets1/training_set.csv").getFile();
         TrainingDataSet ds = new TrainingDataSet(trainingfile);
-        DecisionTree dt = new DecisionTree(ds);
+        DecisionTree dt = new ID3DecisionTree(ds);
         System.out.println(dt.treeToString());
     }
 
