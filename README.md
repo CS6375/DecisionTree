@@ -10,26 +10,26 @@ The `src` directory has the following structure:
     ├── main
     │   └── java
     │       ├── Main.java                           # Driver program entrance.
-    │       └── cs6375
-    │           └── github
-    │               └── io
-    │                   ├── DataSet.java            # Class to store a DataSet.
-    │                   ├── DecisionTree.java       # Class representing a Decision tree.
-    │                   ├── DecisionTreeNode.java   # Class representing a node in the Decision tree.
-    │                   ├── Instance.java           # Class to store a line of information in the DataSet.
-    │                   ├── Math.java               # A self defined math function to gompute plogp()
-    │                   └── TrainingDataSet.java    # The subclass of DataSet, able to compute Entropy.
+    │       └── cs6375.github.io
+    │           ├── DataSet.java                    # Class to store a DataSet.
+    │           ├── DecisionTree.java               # Class representing a Decision tree.
+    │           ├── DecisionTreeNode.java           # Class representing a node in the Decision tree.
+    │           ├── ID3DecisionTree.java            # Subclass of DecisionTree using ID3DecisionTreeNode as node class
+    │           ├── ID3DecisionTreeNode.java        # Subclass of DecisionTreeNode using ID3 algorithm.
+    │           ├── Instance.java                   # Class to store a line of information in the DataSet.
+    │           ├── Math.java                       # A self defined math function to gompute plogp()
+    │           ├── RandomDecisionTree.java         # Subclass of DecisionTree using RandomDecisionTreeNode as node class
+    │           ├── RandomDecisionTreeNode.java     # Subclass of DecisionTreeNode using Random selection.
+    │           └── TrainingDataSet.java            # The subclass of DataSet, able to compute Entropy.
     |
-    └── test                                        # Unit test class for major function.
+    └── test                                        # Unit test resources.
         ├── java
-        │   └── cs6375
-        │       └── github
-        │           └── io
-        │               ├── DataSetTest.java
-        │               ├── DecisionTreeNodeTest.java
-        │               ├── DecisionTreeTest.java
-        │               ├── InstanceTest.java
-        │               └── TrainingDataSetTest.java
+        │   └── cs6375.github.io
+        │       ├── DataSetTest.java
+        │       ├── DecisionTreeNodeTest.java
+        │       ├── DecisionTreeTest.java
+        │       ├── InstanceTest.java
+        │       └── TrainingDataSetTest.java
         └── resources                               # Unit test resources.
             ├── data_sets1
             │   ├── test_set.csv
@@ -40,7 +40,9 @@ The `src` directory has the following structure:
                 ├── training_set.csv
                 └── validation_set.csv
 
-Note that, the structure is default project structure of Gradle.
+    13 directories, 22 files
+
+Note that, the structure is default project structure of __Gradle__.
 
 ## Compilation
 
