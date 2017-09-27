@@ -73,7 +73,7 @@ public class Main {
         System.out.println("Random Generate Decision Tree");
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("Node No.    Leaf No.    Avg Depth       Training    Validation  Test Set");
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             DecisionTree randomDecisionTree = new RandomDecisionTree(trainingDataSet);
             System.out.println(String.format("%d         %d         %f        %.1f%%      %.1f%%       %.1f%%",
                     randomDecisionTree.getSize(),
