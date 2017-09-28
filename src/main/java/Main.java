@@ -67,6 +67,9 @@ public class Main {
         System.out.println("Number of testing attributes = " + testDataSet.getDimension());
         System.out.println("Accuracy of the model on the testing dataset = " + String.format("%.1f%%", 100 * decisionTree.test(testDataSet)));
 
+        double nodeSum  = 0;
+        double leafSum  = 0;
+        double depthSum = 0;
         System.out.println();
         System.out.println();
         System.out.println("--------------------------------------------------------------------------");
@@ -75,13 +78,34 @@ public class Main {
         System.out.println("Node No.    Leaf No.    Avg Depth       Training    Validation  Test Set");
         for (int i = 0; i < 10; i++) {
             DecisionTree randomDecisionTree = new RandomDecisionTree(trainingDataSet);
+            int node  = randomDecisionTree.getSize();
+            int leaf  = randomDecisionTree.getLeafSize();
+            double depth = randomDecisionTree.avgDepth();
+            nodeSum  += node;
+            leafSum  += leaf;
+            depthSum += depth;
             System.out.println(String.format("%d         %d         %f        %.1f%%      %.1f%%       %.1f%%",
-                    randomDecisionTree.getSize(),
-                    randomDecisionTree.getLeafSize(),
-                    randomDecisionTree.avgDepth(),
+                    node,
+                    leaf,
+                    depth,
                     100 * randomDecisionTree.test(trainingDataSet),
                     100 * randomDecisionTree.test(validationDataSet),
                     100 * randomDecisionTree.test(testDataSet)));
         }
+        for (int i = 0; i < 990; i++) {
+            DecisionTree randomDecisionTree = new RandomDecisionTree(trainingDataSet);
+            int node  = randomDecisionTree.getSize();
+            int leaf  = randomDecisionTree.getLeafSize();
+            double depth = randomDecisionTree.avgDepth();
+            nodeSum  += node;
+            leafSum  += leaf;
+            depthSum += depth;
+        }
+
+        System.out.println();
+        System.out.println("Average based on 1000 randomly generated decision tree:");
+        System.out.println("Node count = " + nodeSum / 1000);
+        System.out.println("Leaf count = " + leafSum / 1000);
+        System.out.println("Depth = " + depthSum / 1000);
     }
 }
