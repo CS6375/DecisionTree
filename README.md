@@ -100,7 +100,7 @@ If `gradle` is not available, simply execute `javac src/main/java/Main.java` wou
 
 After generating jar file, execute the following command to run the driver program of the Decision tree.
 
-    java -jar build/libs/DecisionTree-1.0.jar <Training Data>  <Validation Data>  <Testing Data> <Pruning Factor>
+    java -jar build/libs/DecisionTree-1.0.jar <Training Data> <Validation Data>  <Testing Data> <Pruning Factor>
 
 For example, training and pruning based on `data_sets1`:
 
