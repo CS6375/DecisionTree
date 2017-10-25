@@ -107,5 +107,8 @@ public class Main {
         System.out.println("Node count = " + nodeSum / 1000);
         System.out.println("Leaf count = " + leafSum / 1000);
         System.out.println("Depth = " + depthSum / 1000);
+
+        if (args[4].equals("verbose"))
+            System.out.println("\nDecision Tree after pruning:\n" + decisionTree.treeToString());
     }
 }
